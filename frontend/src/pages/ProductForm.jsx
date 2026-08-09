@@ -71,7 +71,7 @@ export default function ProductForm() {
       formData.append("product_image", image);
 
       const response = await fetch(
-        "http://localhost:5000/api/products",
+        "https://myshopecommerce-backend.onrender.com/api/products",
         {
           method: "POST",
           body: formData,

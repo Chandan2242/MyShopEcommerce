@@ -34,7 +34,7 @@ app.use("/api/users", loginRoutes);
 app.use("/api/users", dashboardRoutes);
 app.use("/api/users", profileRoutes);
 
-// http://localhost:5000/api/productsdetails
+// https://myshopecommerce-backend.onrender.com/api/productsdetails
 app.use("/api", ProductDataRoutes);
 
 app.use("/api/orders", orderRoutes);

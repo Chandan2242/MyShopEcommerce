@@ -33,7 +33,7 @@ const AdminProducts = () => {
     const fetchProducts = async () => {
         try {
             const response = await fetch(
-                "http://localhost:5000/api/productsdetails"
+                "https://myshopecommerce-backend.onrender.com/api/productsdetails"
             );
 
             const data = await response.json();
@@ -64,7 +64,7 @@ const AdminProducts = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:5000/api/products/delete/${id}`,
+                `https://myshopecommerce-backend.onrender.com/api/products/delete/${id}`,
                 {
                     method: "DELETE",
                 }

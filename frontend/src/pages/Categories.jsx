@@ -30,7 +30,7 @@ const Categories = () => {
   const fetchCategories = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/categories"
+        "https://myshopecommerce-backend.onrender.com/api/categories"
       );
 
       const data = await response.json();
@@ -58,7 +58,7 @@ const Categories = () => {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/categories",
+        "https://myshopecommerce-backend.onrender.com/api/categories",
         {
           method: "POST",
           headers: {
@@ -100,7 +100,7 @@ const Categories = () => {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/categories/${id}`,
+        `https://myshopecommerce-backend.onrender.com/api/categories/${id}`,
         {
           method: "DELETE",
         }

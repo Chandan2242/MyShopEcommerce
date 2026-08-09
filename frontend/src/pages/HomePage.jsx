@@ -43,7 +43,7 @@ const handleViewDetails = (id) => {
   const fetchProducts = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/productsdetails"
+        "https://myshopecommerce-backend.onrender.com/api/productsdetails"
       );
 
       const data = await response.json();

@@ -79,7 +79,7 @@ export default function ConfirmOrders() {
       setLoading(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/orders",
+        "https://myshopecommerce-backend.onrender.com/api/orders",
         {
           method: "POST",
           headers: {

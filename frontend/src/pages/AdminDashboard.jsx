@@ -93,7 +93,7 @@ export function AdminDashboard() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:5000/api/orders",
+        "https://myshopecommerce-backend.onrender.com/api/orders",
         {
           method: "GET",
           headers: {

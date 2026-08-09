@@ -32,7 +32,7 @@ const AdminOrders = () => {
             const token = localStorage.getItem("token");
 
             const response = await fetch(
-                "http://localhost:5000/api/orders",
+                "https://myshopecommerce-backend.onrender.com/api/orders",
                 {
                     method: "GET",
                     headers: {
@@ -70,7 +70,7 @@ const AdminOrders = () => {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-            `http://localhost:5000/api/orders/${orderId}`,
+            `https://myshopecommerce-backend.onrender.com/api/orders/${orderId}`,
             {
                 method: "PUT",
                 headers: {

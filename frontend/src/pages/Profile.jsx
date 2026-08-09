@@ -36,7 +36,7 @@ export function Profile() {
             }
 
             const response = await fetch(
-                "http://localhost:5000/api/users/profile",
+                "https://myshopecommerce-backend.onrender.com/api/users/profile",
                 {
                     method: "GET",
                     headers: {
