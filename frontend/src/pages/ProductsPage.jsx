@@ -103,6 +103,7 @@ export default function ProductsPage() {
       <Typography color="text.secondary" mb={4}>
         Browse our latest collection.
       </Typography>
+      <br />
 
       {/* Search + Category */}
       <Box
@@ -117,6 +118,7 @@ export default function ProductsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <br /><br />
 
         <TextField
           select
@@ -131,6 +133,7 @@ export default function ProductsPage() {
             </MenuItem>
           ))}
         </TextField>
+        <br /><br />
       </Box>
 
       {/* Loading */}
@@ -191,7 +194,7 @@ export default function ProductsPage() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "cover",
+                        objectFit: "contain",
                         display: "block",
                       }}
                     />

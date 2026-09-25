@@ -217,7 +217,7 @@ export function ProductDetailsPage() {
             <Typography fontWeight="bold">
               Quantity
             </Typography>
-
+              <br />
             <Box className="border rounded-lg flex items-center">
 
               <IconButton
@@ -244,6 +244,7 @@ export function ProductDetailsPage() {
             </Box>
 
           </Box>
+          <br />
 
           {/* Buttons */}
 
@@ -261,7 +262,7 @@ export function ProductDetailsPage() {
             >
               Add To Cart
             </Button>
-
+                <br /> <br />
             <Button
               variant="contained"
               color="warning"
@@ -270,7 +271,7 @@ export function ProductDetailsPage() {
             >
               Buy Now
             </Button>
-
+ <br /><br />
             <Button
               variant="outlined"
               startIcon={<FavoriteBorder />}
