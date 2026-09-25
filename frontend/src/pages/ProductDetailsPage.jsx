@@ -113,7 +113,7 @@ export function ProductDetailsPage() {
             <img
               src={selectedImage}
               alt={product.product_name}
-              className="w-full h-[450px] object-cover rounded-lg"
+              className="w-full h-[450px] object-contain rounded-lg"
             />
 
             <div className="flex gap-3 mt-4">
