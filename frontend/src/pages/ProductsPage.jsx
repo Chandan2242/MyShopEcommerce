@@ -150,9 +150,9 @@ export default function ProductsPage() {
             >
               <Card
                 sx={{
-                  transition: "0.3s",
                   overflow: "hidden",
-                  height: "auto",
+                  transition: "0.3s",
+                  height: "fit-content",
                   "&:hover": {
                     boxShadow: 8,
                   },
@@ -272,9 +272,7 @@ export default function ProductsPage() {
                   <Button
                     variant="outlined"
                     fullWidth
-                    onClick={() =>
-                      handleViewDetails(product._id)
-                    }
+                    onClick={() => handleViewDetails(product._id)}
                   >
                     View Details
                   </Button>
@@ -282,9 +280,7 @@ export default function ProductsPage() {
                   <Button
                     variant="contained"
                     fullWidth
-                    onClick={() =>
-                      handleAddToCart(product)
-                    }
+                    onClick={() => handleAddToCart(product)}
                   >
                     Add to Cart
                   </Button>
