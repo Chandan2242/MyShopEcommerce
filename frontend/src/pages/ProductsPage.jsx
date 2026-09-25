@@ -1,4 +1,3 @@
-
 import React, { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -147,24 +146,35 @@ export default function ProductsPage() {
             <Grid
               key={product._id}
               size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
+              sx={{
+                display: "flex",
+                alignItems: "stretch",
+              }}
             >
+              {/* PRODUCT CARD */}
               <Card
                 sx={{
+                  width: "100%",
+                  height: 500,
                   overflow: "hidden",
                   transition: "0.3s",
-                  height: "fit-content",
+                  display: "flex",
+                  flexDirection: "column",
                   "&:hover": {
                     boxShadow: 8,
                   },
                 }}
               >
-                {/* Product Image */}
+                {/* ================= IMAGE - 50% ================= */}
                 <Box
                   position="relative"
                   sx={{
                     width: "100%",
-                    height: 220,
+                    height: "50%",
+                    minHeight: 0,
                     backgroundColor: "#f5f5f5",
+                    overflow: "hidden",
+                    flexShrink: 0,
                   }}
                 >
                   <Link
@@ -182,7 +192,7 @@ export default function ProductsPage() {
                       sx={{
                         width: "100%",
                         height: "100%",
-                        objectFit: "contain",
+                        objectFit: "cover",
                         display: "block",
                       }}
                     />
@@ -216,75 +226,92 @@ export default function ProductsPage() {
                   </IconButton>
                 </Box>
 
-                {/* Product Content */}
-                <CardContent>
-                  <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    sx={{
-                      minHeight: 32,
-                    }}
-                  >
-                    {product.product_name}
-                  </Typography>
-
-                  <Typography
-                    variant="body2"
-                    color="text.secondary"
-                    mt={1}
-                    sx={{
-                      minHeight: 40,
-                      display: "-webkit-box",
-                      WebkitLineClamp: 2,
-                      WebkitBoxOrient: "vertical",
-                      overflow: "hidden",
-                    }}
-                  >
-                    {product.product_description}
-                  </Typography>
-
-                  {/* Rating */}
-                  <Rating
-                    value={4.5}
-                    precision={0.5}
-                    readOnly
-                    sx={{ mt: 2 }}
-                  />
-
-                  {/* Price */}
-                  <Typography
-                    variant="h6"
-                    color="primary"
-                    fontWeight="bold"
-                    mt={2}
-                  >
-                    ₹{Number(product.product_price).toLocaleString()}
-                  </Typography>
-                </CardContent>
-
-                {/* Buttons */}
-                <CardActions
+                {/* ================= DETAILS - 50% ================= */}
+                <Box
                   sx={{
-                    p: 2,
-                    pt: 0,
+                    height: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    minHeight: 0,
                   }}
                 >
-                  <Button
-                    variant="outlined"
-                    fullWidth
-                    onClick={() => handleViewDetails(product._id)}
+                  <CardContent
+                    sx={{
+                      flex: 1,
+                      overflow: "hidden",
+                      pb: 1,
+                    }}
                   >
-                    View Details
-                  </Button>
+                    {/* Product Name */}
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      noWrap
+                    >
+                      {product.product_name}
+                    </Typography>
 
-                  <Button
-                    variant="contained"
-                    fullWidth
-                    onClick={() => handleAddToCart(product)}
+                    {/* Description */}
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      mt={1}
+                      sx={{
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
+                      }}
+                    >
+                      {product.product_description}
+                    </Typography>
+
+                    {/* Rating */}
+                    <Rating
+                      value={4.5}
+                      precision={0.5}
+                      readOnly
+                      sx={{ mt: 1.5 }}
+                    />
+
+                    {/* Price */}
+                    <Typography
+                      variant="h6"
+                      color="primary"
+                      fontWeight="bold"
+                      mt={1}
+                    >
+                      ₹
+                      {Number(product.product_price).toLocaleString()}
+                    </Typography>
+                  </CardContent>
+
+                  {/* Buttons */}
+                  <CardActions
+                    sx={{
+                      p: 2,
+                      pt: 0,
+                      gap: 1,
+                      flexShrink: 0,
+                    }}
                   >
-                    Add to Cart
-                  </Button>
-                </CardActions>
+                    <Button
+                      variant="outlined"
+                      fullWidth
+                      onClick={() => handleViewDetails(product._id)}
+                    >
+                      View Details
+                    </Button>
+
+                    <Button
+                      variant="contained"
+                      fullWidth
+                      onClick={() => handleAddToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
+                  </CardActions>
+                </Box>
               </Card>
             </Grid>
           ))}
@@ -306,4 +333,3 @@ export default function ProductsPage() {
     </Container>
   );
 }
-
