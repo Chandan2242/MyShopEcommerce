@@ -154,7 +154,7 @@ export function HomePage() {
                     sx={{
                       width: "100%",
                       height: 220,
-                      objectFit: "cover",
+                      objectFit: "contain",
                       display: "block",
                     }}
                   />
