@@ -30,17 +30,17 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  
-    const { addToCart } = useCart();
-  
-  
-    const handleAddToCart = (product) => {
-          console.log(product);
+
+  const { addToCart } = useCart();
+
+
+  const handleAddToCart = (product) => {
+    console.log(product);
     addToCart(product);
-  
+
     alert("Product added to cart");
   };
-  
+
   const handleViewDetails = (id) => {
     navigate(`/products/${id}`);
   };
@@ -142,7 +142,10 @@ export default function ProductsPage() {
               <Card
                 sx={{
                   height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
                   transition: ".3s",
+                  overflow: "hidden",
                   "&:hover": {
                     boxShadow: 8,
                   },
@@ -152,7 +155,12 @@ export default function ProductsPage() {
                   <Link to={`/products/${product._id}`}>
                     <CardMedia
                       component="img"
-                      height="220"
+                      sx={{
+                        height: 220,
+                        width: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
                       image={product.product_image}
                       alt={product.product_name}
                     />
@@ -194,7 +202,10 @@ export default function ProductsPage() {
                     color="text.secondary"
                     mt={1}
                     sx={{
-                      height: 45,
+                      minHeight: 45,
+                      display: "-webkit-box",
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: "vertical",
                       overflow: "hidden",
                     }}
                   >
@@ -222,22 +233,27 @@ export default function ProductsPage() {
                   </Typography>
                 </CardContent>
 
-                <CardActions sx={{ p: 2 }}>
+                <CardActions
+                  sx={{
+                    p: 2,
+                    mt: "auto",
+                  }}
+                >
                   <Button
-                                        variant="outlined"
-                                        fullWidth
-                                    onClick={() => handleViewDetails(product._id)}
-                                          >
-                                          View Details
-                                          </Button>
-                  
-                                        <Button
-                                        variant="contained"
-                                            fullWidth
-                                        onClick={() => handleAddToCart(product)}
-                                          >
-                                    Add to Cart
-                                    </Button>
+                    variant="outlined"
+                    fullWidth
+                    onClick={() => handleViewDetails(product._id)}
+                  >
+                    View Details
+                  </Button>
+
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    onClick={() => handleAddToCart(product)}
+                  >
+                    Add to Cart
+                  </Button>
                 </CardActions>
               </Card>
             </Grid>
