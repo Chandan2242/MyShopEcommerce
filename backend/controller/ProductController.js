@@ -1,40 +1,70 @@
-const Products = require("../models/Product.model")
+const Products = require("../models/Product.model");
+const cloudinary = require("../config/cloudinary");
 
-const ProductData = async(req, res) => {
-    
+const uploadToCloudinary = (buffer) => {
+    return new Promise((resolve, reject) => {
+        const stream = cloudinary.uploader.upload_stream(
+            {
+                folder: "images",
+                resource_type: "image",
+            },
+            (error, result) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
 
-    
+        stream.end(buffer);
+    });
+};
 
-    try{
+const ProductData = async (req, res) => {
+    try {
+        const {
+            product_name,
+            product_description,
+            product_category,
+            product_price,
+        } = req.body;
 
-
-         const {product_name, product_description, product_category, product_price} = req.body
-    
-         // Check if image is uploaded
+        // Check if image is uploaded
         if (!req.file) {
             return res.status(400).json({
-                message: "Please upload a product image"
+                message: "Please upload a product image",
             });
         }
 
-    const productinfo = await Products.create({
-        product_name,
-        product_description,
-        product_category,
-        product_price,
+        // Upload image to Cloudinary
+        const result = await uploadToCloudinary(req.file.buffer);
 
-        // Image details
-        product_image: req.file.path,        // Cloudinary URL
-        public_id: req.file.filename         // Cloudinary Public ID
-    })
+        // Save product in MongoDB
+        const productinfo = await Products.create({
+            product_name,
+            product_description,
+            product_category,
+            product_price,
 
-    res.status(201).json({message: "Product Created Successfully", productinfo})
-    // res.json(productinfo)
-}
-catch(err) {
-     res.status(500).json({message: err.message})   
-}
+            // Cloudinary details
+            product_image: result.secure_url,
+            public_id: result.public_id,
+        });
 
-}
+        res.status(201).json({
+            success: true,
+            message: "Product Created Successfully",
+            productinfo,
+        });
+    } catch (err) {
+        console.error("Product Create Error:", err);
 
-module.exports = ProductData
+        res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+module.exports = ProductData;
