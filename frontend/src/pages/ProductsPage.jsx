@@ -5,8 +5,6 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
-  CardContent,
   CardMedia,
   Chip,
   CircularProgress,
@@ -148,33 +146,34 @@ export default function ProductsPage() {
               size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
               sx={{
                 display: "flex",
-                alignItems: "stretch",
               }}
             >
-              {/* PRODUCT CARD */}
+              {/* ================= PRODUCT CARD ================= */}
               <Card
                 sx={{
                   width: "100%",
                   height: 500,
                   overflow: "hidden",
-                  transition: "0.3s",
                   display: "flex",
                   flexDirection: "column",
+                  transition: "0.3s",
+
                   "&:hover": {
                     boxShadow: 8,
                   },
                 }}
               >
-                {/* ================= IMAGE - 50% ================= */}
+                {/* =================================================
+                    TOP 50% - IMAGE
+                ================================================= */}
                 <Box
-                  position="relative"
                   sx={{
                     width: "100%",
                     height: "50%",
-                    minHeight: 0,
-                    backgroundColor: "#f5f5f5",
+                    position: "relative",
                     overflow: "hidden",
                     flexShrink: 0,
+                    backgroundColor: "#f5f5f5",
                   }}
                 >
                   <Link
@@ -217,6 +216,7 @@ export default function ProductsPage() {
                       top: 8,
                       right: 8,
                       bgcolor: "white",
+
                       "&:hover": {
                         bgcolor: "white",
                       },
@@ -226,20 +226,25 @@ export default function ProductsPage() {
                   </IconButton>
                 </Box>
 
-                {/* ================= DETAILS - 50% ================= */}
+                {/* =================================================
+                    BOTTOM 50% - DETAILS
+                ================================================= */}
                 <Box
                   sx={{
                     height: "50%",
                     display: "flex",
                     flexDirection: "column",
+                    boxSizing: "border-box",
+                    padding: "15px 16px 20px",
                     minHeight: 0,
                   }}
                 >
-                  <CardContent
+                  {/* Product Details */}
+                  <Box
                     sx={{
                       flex: 1,
+                      minHeight: 0,
                       overflow: "hidden",
-                      pb: 1,
                     }}
                   >
                     {/* Product Name */}
@@ -251,12 +256,12 @@ export default function ProductsPage() {
                       {product.product_name}
                     </Typography>
 
-                    {/* Description */}
+                    {/* Product Description */}
                     <Typography
                       variant="body2"
                       color="text.secondary"
-                      mt={1}
                       sx={{
+                        mt: 1,
                         display: "-webkit-box",
                         WebkitLineClamp: 2,
                         WebkitBoxOrient: "vertical",
@@ -271,7 +276,9 @@ export default function ProductsPage() {
                       value={4.5}
                       precision={0.5}
                       readOnly
-                      sx={{ mt: 1.5 }}
+                      sx={{
+                        mt: 1.5,
+                      }}
                     />
 
                     {/* Price */}
@@ -279,22 +286,26 @@ export default function ProductsPage() {
                       variant="h6"
                       color="primary"
                       fontWeight="bold"
-                      mt={1}
+                      sx={{
+                        mt: 1,
+                      }}
                     >
-                      ₹
-                      {Number(product.product_price).toLocaleString()}
+                      ₹{Number(product.product_price).toLocaleString()}
                     </Typography>
-                  </CardContent>
+                  </Box>
 
-                  {/* Buttons */}
-                  <CardActions
+                  {/* =================================================
+                      BUTTONS
+                      Bottom se 20px upar
+                  ================================================= */}
+                  <Box
                     sx={{
-                      p: 2,
-                      pt: 0,
-                      gap: 1,
-                      flexShrink: 0,
+                      display: "flex",
+                      gap: "10px",
+                      marginTop: "15px",
                     }}
                   >
+                    {/* View Details */}
                     <Button
                       variant="outlined"
                       fullWidth
@@ -303,6 +314,7 @@ export default function ProductsPage() {
                       View Details
                     </Button>
 
+                    {/* Add To Cart */}
                     <Button
                       variant="contained"
                       fullWidth
@@ -310,7 +322,7 @@ export default function ProductsPage() {
                     >
                       Add to Cart
                     </Button>
-                  </CardActions>
+                  </Box>
                 </Box>
               </Card>
             </Grid>
