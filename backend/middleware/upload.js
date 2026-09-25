@@ -1,5 +1,5 @@
 const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const CloudinaryStorage = require("multer-storage-cloudinary");
 
 const cloudinary = require("../config/cloudinary");
 
@@ -15,7 +15,7 @@ const imageStorage = new CloudinaryStorage({
 const uploadImage = multer({
   storage: imageStorage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    fileSize: 5 * 1024 * 1024,
   },
 });
 
