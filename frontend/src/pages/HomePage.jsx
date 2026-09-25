@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import {
   Box,
   Button,
@@ -20,20 +21,17 @@ export function HomePage() {
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-
   const { addToCart } = useCart();
 
-
   const handleAddToCart = (product) => {
-        console.log(product);
-  addToCart(product);
+    console.log(product);
+    addToCart(product);
+    alert("Product added to cart");
+  };
 
-  alert("Product added to cart");
-};
-
-const handleViewDetails = (id) => {
-  navigate(`/products/${id}`);
-};
+  const handleViewDetails = (id) => {
+    navigate(`/products/${id}`);
+  };
 
   // Fetch Products
   useEffect(() => {
@@ -48,16 +46,15 @@ const handleViewDetails = (id) => {
 
       const data = await response.json();
 
-      if (data.success) {
+      if (data.success && Array.isArray(data.data)) {
         // Show only first 6 products
         setProducts(data.data.slice(0, 6));
+      } else {
+        setProducts([]);
       }
-
-
-      
-
     } catch (error) {
-      console.log(error);
+      console.log("Fetch Products Error:", error);
+      setProducts([]);
     } finally {
       setLoading(false);
     }
@@ -65,7 +62,8 @@ const handleViewDetails = (id) => {
 
   return (
     <Box className="bg-gray-100 min-h-screen">
-      {/* Hero Banner */}
+
+      {/* ================= HERO BANNER ================= */}
       <Box
         sx={{
           height: { xs: 250, md: 450 },
@@ -95,17 +93,18 @@ const handleViewDetails = (id) => {
 
           <Button
             variant="contained"
-          size="large"
-          sx={{ mt: 4 }}
-          onClick={() => navigate("/products")}
+            size="large"
+            sx={{ mt: 4 }}
+            onClick={() => navigate("/products")}
           >
-          Shop Now
+            Shop Now
           </Button>
         </Container>
       </Box>
 
-      {/* Featured Products */}
+      {/* ================= FEATURED PRODUCTS ================= */}
       <Container sx={{ py: 6 }}>
+
         <Typography
           variant="h4"
           align="center"
@@ -124,71 +123,110 @@ const handleViewDetails = (id) => {
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container spacing={4} mt={2}>
+          <Grid
+            container
+            spacing={4}
+            mt={2}
+          >
             {products.map((product) => (
               <Grid
                 key={product._id}
                 size={{ xs: 12, sm: 6, md: 4 }}
+                sx={{
+                  display: "flex",
+                  alignItems: "flex-start",
+                }}
               >
+                {/* PRODUCT CARD */}
                 <Card
                   className="rounded-xl hover:shadow-2xl transition duration-300"
-                  sx={{ height: "100%" }}
+                  sx={{
+                    width: "100%",
+                    overflow: "hidden",
+                  }}
                 >
+
+                  {/* Product Image */}
                   <CardMedia
                     component="img"
-                    height="220"
                     image={product.product_image}
                     alt={product.product_name}
+                    sx={{
+                      width: "100%",
+                      height: 220,
+                      objectFit: "cover",
+                      display: "block",
+                    }}
                   />
 
+                  {/* Product Details */}
                   <CardContent>
+
+                    {/* Product Name */}
                     <Typography
                       variant="h6"
                       fontWeight="bold"
+                      noWrap
                     >
                       {product.product_name}
                     </Typography>
 
+                    {/* Description */}
                     <Typography
                       variant="body2"
                       color="text.secondary"
                       sx={{
                         mt: 1,
                         minHeight: "45px",
+                        display: "-webkit-box",
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: "vertical",
+                        overflow: "hidden",
                       }}
                     >
                       {product.product_description}
                     </Typography>
 
+                    {/* Price */}
                     <Typography
                       color="primary"
                       fontWeight="bold"
-                      mt={2}
+                      sx={{
+                        mt: 2,
+                      }}
                     >
                       ₹{Number(product.product_price).toLocaleString()}
                     </Typography>
 
+                    {/* Buttons */}
                     <Box
-                      display="flex"
-                      gap={1}
-                      mt={2}
+                      sx={{
+                        display: "flex",
+                        gap: "10px",
+                        mt: 2,
+                      }}
                     >
                       <Button
-                      variant="outlined"
-                      fullWidth
-                  onClick={() => handleViewDetails(product._id)}
-                        >
+                        variant="outlined"
+                        fullWidth
+                        onClick={() =>
+                          handleViewDetails(product._id)
+                        }
+                      >
                         View Details
-                        </Button>
+                      </Button>
 
                       <Button
-                      variant="contained"
-                          fullWidth
-                      onClick={() => handleAddToCart(product)}
-                        >
-                  Add to Cart
-                  </Button>
+                        variant="contained"
+                        fullWidth
+                        onClick={() =>
+                          handleAddToCart(product)
+                        }
+                      >
+                        Add to Cart
+                      </Button>
                     </Box>
+
                   </CardContent>
                 </Card>
               </Grid>
@@ -197,9 +235,10 @@ const handleViewDetails = (id) => {
         )}
       </Container>
 
-      {/* Why Choose Us */}
+      {/* ================= WHY CHOOSE US ================= */}
       <Box className="bg-white py-12">
         <Container>
+
           <Typography
             variant="h4"
             align="center"
@@ -209,10 +248,18 @@ const handleViewDetails = (id) => {
             Why Choose MyShop?
           </Typography>
 
-          <Grid container spacing={4} mt={3}>
+          <Grid
+            container
+            spacing={4}
+            mt={3}
+          >
+
+            {/* Fast Delivery */}
             <Grid size={{ xs: 12, md: 4 }}>
               <Box className="text-center p-6 shadow rounded-lg">
-                <Typography variant="h2">🚚</Typography>
+                <Typography variant="h2">
+                  🚚
+                </Typography>
 
                 <Typography
                   variant="h6"
@@ -227,9 +274,12 @@ const handleViewDetails = (id) => {
               </Box>
             </Grid>
 
+            {/* Secure Payment */}
             <Grid size={{ xs: 12, md: 4 }}>
               <Box className="text-center p-6 shadow rounded-lg">
-                <Typography variant="h2">💳</Typography>
+                <Typography variant="h2">
+                  💳
+                </Typography>
 
                 <Typography
                   variant="h6"
@@ -244,9 +294,12 @@ const handleViewDetails = (id) => {
               </Box>
             </Grid>
 
+            {/* 24/7 Support */}
             <Grid size={{ xs: 12, md: 4 }}>
               <Box className="text-center p-6 shadow rounded-lg">
-                <Typography variant="h2">🎧</Typography>
+                <Typography variant="h2">
+                  🎧
+                </Typography>
 
                 <Typography
                   variant="h6"
@@ -260,9 +313,11 @@ const handleViewDetails = (id) => {
                 </Typography>
               </Box>
             </Grid>
+
           </Grid>
         </Container>
       </Box>
+
     </Box>
   );
 }
